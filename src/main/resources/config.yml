@@ -1,0 +1,20 @@
+# Skyblock island configurations
+island-configuration:
+  # Diameter of each island region (in blocks)
+  island-region-diameter: 500
+  # Distance between island edges (gap)
+  spacing: 200
+  # Maximum islands per row before wrapping to next row (Z axis)
+  max-columns-per-row: 10
+  # World name where islands are created
+  world: world
+  # Y level where islands are pasted
+  y-level: 65
+
+  # Schematic filename (must be in plugins/SkyblockSpawner/schematics/)
+  schematic: island.schem
+
+  # The current X spawn coordinates. This will be automatically incremented. DO NOT TOUCH UNLESS YOU KNOW WHAT YOU ARE DOING!
+  current-column: 0
+  # The current Z spawn coordinates. This will be automatically incremented. DO NOT TOUCH UNLESS YOU KNOW WHAT YOU ARE DOING!
+  current-row: 0

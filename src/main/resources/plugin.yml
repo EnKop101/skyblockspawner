@@ -1,0 +1,15 @@
+name: SkyblockSpawner
+description: $description
+version: '${version}'
+
+main: org.enkop.skyblockSpawner.SkyblockSpawner
+api-version: '1.21.11'
+load: POSTWORLD
+
+authors: [ EnKop ]
+
+depend:
+  - WorldGuard
+softdepend:
+  - WorldEdit
+  - Essentials
