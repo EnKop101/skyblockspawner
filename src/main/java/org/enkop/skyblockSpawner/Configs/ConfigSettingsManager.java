@@ -8,23 +8,23 @@ import org.enkop.skyblockSpawner.SkyblockSpawner;
 
 import java.io.File;
 
-public class ConfigManager {
+public class ConfigSettingsManager {
     private final SkyblockSpawner plugin;
     private volatile ConfigSettings configSettings;
 
     private static final String SCHEMATIC_FOLDER_NAME = "schematics";
 
     private static final String SECTION_NAME = "island-configuration";
-    private static final String REGION_DIAMETER = "island-region-diameter";
-    private static final String SPACING = "spacing";
-    private static final String MAX_COLUMNS_PER_ROW = "max-columns-per-row";
+    private static final String REGION_DIAMETER = "island-region-size";
+    private static final String MIN_SPACING = "min-spacing";
+    private static final String MAX_SPACING = "max-spacing";
     private static final String WORLD = "world";
     private static final String Y_LEVEL = "y-level";
+    private static final String START_X = "start-x";
+    private static final String START_Z = "start-z";
     private static final String SCHEMATIC_NAME = "schematic";
-    private static final String CURRENT_COLUMN = "current-column";
-    private static final String CURRENT_ROW = "current-row";
 
-    public ConfigManager(SkyblockSpawner _plugin){
+    public ConfigSettingsManager(SkyblockSpawner _plugin){
         this.plugin = _plugin;
         reload();
     }
@@ -57,8 +57,8 @@ public class ConfigManager {
         ConfigurationSection islandConfigSection = configFile.getConfigurationSection(SECTION_NAME);
         if (islandConfigSection != null) {
             int regionDiameter = Math.max(0, islandConfigSection.getInt(REGION_DIAMETER, 1));
-            int spacing = Math.max(0, islandConfigSection.getInt(SPACING, 0));
-            int maxColumnsPerRow = Math.max(1, islandConfigSection.getInt(MAX_COLUMNS_PER_ROW, 1));
+            int minSpacing = Math.max(1, islandConfigSection.getInt(MAX_SPACING, 1));
+            int maxSpacing = Math.max(1, islandConfigSection.getInt(MIN_SPACING, 1));
 
             String worldName = islandConfigSection.getString(WORLD, null);
             if (worldName == null){
@@ -90,32 +90,19 @@ public class ConfigManager {
                 return;
             }
 
-            int currentColumn = Math.max(1, islandConfigSection.getInt(CURRENT_COLUMN, 1));
-            int currentRow = Math.max(1, islandConfigSection.getInt(CURRENT_ROW, 1));
+            int startX = Math.max(0, islandConfigSection.getInt(START_X, 0));
+            int startZ = Math.max(0, islandConfigSection.getInt(START_Z, 0));
 
             this.configSettings = new ConfigSettings(
                     regionDiameter,
-                    spacing,
-                    maxColumnsPerRow,
+                    minSpacing,
+                    maxSpacing,
                     world,
                     yLevel,
-                    schemFile,
-                    currentColumn,
-                    currentRow
+                    startX,
+                    startZ,
+                    schemFile
             );
         }
-    }
-
-    /**
-     * Saves values that was changed by the plugin to the actual file.
-     */
-    public void update(){
-        FileConfiguration configFile = plugin.getConfig();
-        ConfigurationSection islandConfigSection = configFile.getConfigurationSection(SECTION_NAME);
-        if (islandConfigSection != null) {
-            islandConfigSection.set(CURRENT_COLUMN, configSettings.currentColumn());
-            islandConfigSection.set(CURRENT_ROW, configSettings.currentRow());
-        }
-        plugin.saveConfig();
     }
 }

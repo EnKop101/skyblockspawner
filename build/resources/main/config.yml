@@ -1,0 +1,14 @@
+# Skyblock island configurations
+island-configuration:
+  # Diameter of each island region (in blocks)
+  island-region-diameter: 500
+  # Distance between island edges (gap)
+  spacing: 200
+  # Maximum islands per row before wrapping to next row (Z axis)
+  max-per-row: 10
+  # World name where islands are created
+  world: world
+  # Y level where islands are pasted
+  y-level: 65
+  # Schematic filename (must be in plugins/FastAsyncWorldEdit/schematics/)
+  schematic: island.schem

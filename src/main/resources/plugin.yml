@@ -13,3 +13,10 @@ depend:
 softdepend:
   - WorldEdit
   - Essentials
+
+commands:
+  skyblockadmin:
+    description: Admin commands for SkyblockSpawner
+    aliases: [sba]
+    permission: skyblockspawner.admin
+    usage: /sba <next|peek|info|tp|reset|simulate> [args]

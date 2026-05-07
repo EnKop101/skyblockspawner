@@ -3,6 +3,10 @@ package org.enkop.skyblockSpawner;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.enkop.skyblockSpawner.Commands.AdminCommand;
+import org.enkop.skyblockSpawner.Configs.ConfigSettingsManager;
+import org.enkop.skyblockSpawner.Data.ConfigDataManager;
+import org.enkop.skyblockSpawner.Utility.IslandGrid;
 
 public final class SkyblockSpawner extends JavaPlugin {
 
@@ -10,8 +14,15 @@ public final class SkyblockSpawner extends JavaPlugin {
     private boolean worldGuardHooked = false;
     private boolean essentialsHooked = false;
 
+    private ConfigSettingsManager configSettingsManager;
+    private ConfigDataManager configDataManager;
+    private IslandGrid islandGrid;
+
     @Override
     public void onEnable() {
+        this.configSettingsManager = new ConfigSettingsManager(this);
+        this.configDataManager = new ConfigDataManager(this);
+        this.islandGrid = new IslandGrid(this, configSettingsManager, configDataManager);
 
         // Hook into dependencies
         if (!hookWorldEdit()) {
@@ -32,6 +43,8 @@ public final class SkyblockSpawner extends JavaPlugin {
         getLogger().info("WorldEdit/FAWE: " + (worldEditHooked ? "OK" : "MISSING"));
         getLogger().info("WorldGuard:     " + (worldGuardHooked ? "OK" : "MISSING"));
         getLogger().info("Essentials:     " + (essentialsHooked ? "OK" : "not present (optional)"));
+
+        getCommand("skyblockadmin").setExecutor(new AdminCommand(this));
     }
 
     @Override
@@ -99,4 +112,8 @@ public final class SkyblockSpawner extends JavaPlugin {
     public boolean isWorldEditHooked() { return worldEditHooked; }
     public boolean isWorldGuardHooked() { return worldGuardHooked; }
     public boolean isEssentialsHooked() { return essentialsHooked; }
+
+    public ConfigSettingsManager getConfigSettingsManager() { return configSettingsManager; }
+    public ConfigDataManager getConfigDataManager() { return configDataManager; }
+    public IslandGrid getIslandGrid() { return islandGrid; }
 }

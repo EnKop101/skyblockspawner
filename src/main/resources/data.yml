@@ -1,0 +1,6 @@
+# The amount of the islands in total that has been spawned. This will be also be the name of the island like ( island-<islands-spawned> )
+# DO NOT TOUCH!!!!!!
+islands-spawned: 0
+
+# Slots that have been deleted and is available for the picking.
+released-indices: []
