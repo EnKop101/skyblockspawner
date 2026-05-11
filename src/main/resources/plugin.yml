@@ -10,8 +10,8 @@ authors: [ EnKop ]
 
 depend:
   - WorldGuard
-softdepend:
   - WorldEdit
+softdepend:
   - Essentials
 
 commands:

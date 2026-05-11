@@ -1,6 +1,5 @@
 package org.enkop.skyblockSpawner.Data;
 
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.enkop.skyblockSpawner.SkyblockSpawner;
@@ -17,7 +16,7 @@ public class ConfigDataManager {
     private File dataFile;
 
     private static final String DATA_FILE_NAME = "data.yml";
-    private static final String ISLANDS_SPAWNED = "islands-spawned";
+    private static final String ISLAND_INDEX = "island-index";
     private static final String RELEASED_INDICES = "released-indices";
 
     public ConfigDataManager(SkyblockSpawner _plugin){
@@ -40,22 +39,22 @@ public class ConfigDataManager {
             } catch (IOException e){
                 plugin.getLogger().severe("Could not create data.yml: " + e.getMessage());
                 plugin.getServer().getPluginManager().disablePlugin(this.plugin);
-                return;
+                throw new RuntimeException("Failed to configure config data");
             }
         }
 
         dataConfig = YamlConfiguration.loadConfiguration(dataFile);
 
         // Set defaults if missing
-        if (!dataConfig.contains(ISLANDS_SPAWNED)){
-            dataConfig.set(ISLANDS_SPAWNED, 0);
+        if (!dataConfig.contains(ISLAND_INDEX)){
+            dataConfig.set(ISLAND_INDEX, 1);
         }
         if (!dataConfig.contains(RELEASED_INDICES)){
             dataConfig.set(RELEASED_INDICES, new ArrayList<Integer>());
         }
 
-        int islandsSpawned = Math.max(0, dataConfig.getInt(ISLANDS_SPAWNED, 0));
-        ArrayList<Integer> releasedIndices = new ArrayList<>(dataConfig.getIntegerList("released-indices"));
+        int islandsSpawned = Math.max(1, dataConfig.getInt(ISLAND_INDEX, 1));
+        ArrayList<Integer> releasedIndices = new ArrayList<>(dataConfig.getIntegerList(RELEASED_INDICES));
 
         this.configData = new ConfigData(
                 islandsSpawned,
@@ -72,6 +71,7 @@ public class ConfigDataManager {
         } catch (IOException e){
             plugin.getLogger().severe("Could not save data.yml: " + e.getMessage());
             plugin.getServer().getPluginManager().disablePlugin(this.plugin);
+            throw new RuntimeException("Failed to configure config data");
         }
     }
 
@@ -80,7 +80,7 @@ public class ConfigDataManager {
      */
     public void update(){
         if (dataConfig != null) {
-            dataConfig.set(ISLANDS_SPAWNED, configData.islandsSpawned());
+            dataConfig.set(ISLAND_INDEX, configData.islandIndex());
             dataConfig.set(RELEASED_INDICES, configData.releasedIndices());
 
             try {

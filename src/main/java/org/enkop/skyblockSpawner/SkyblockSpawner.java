@@ -20,9 +20,15 @@ public final class SkyblockSpawner extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        this.configSettingsManager = new ConfigSettingsManager(this);
-        this.configDataManager = new ConfigDataManager(this);
-        this.islandGrid = new IslandGrid(this, configSettingsManager, configDataManager);
+        try {
+            this.configSettingsManager = new ConfigSettingsManager(this);
+            this.configDataManager = new ConfigDataManager(this);
+            this.islandGrid = new IslandGrid(this, configSettingsManager, configDataManager);
+        }
+        catch (RuntimeException e){
+            getLogger().severe(e.getMessage());
+            return;
+        }
 
         // Hook into dependencies
         if (!hookWorldEdit()) {

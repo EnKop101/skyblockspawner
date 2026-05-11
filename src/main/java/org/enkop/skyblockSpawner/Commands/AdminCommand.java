@@ -1,6 +1,6 @@
 package org.enkop.skyblockSpawner.Commands;
 
-import org.bukkit.Bukkit;
+import com.fastasyncworldedit.core.util.TaskManager;
 import org.bukkit.ChatColor;
 import org.bukkit.Location;
 import org.bukkit.World;
@@ -48,11 +48,12 @@ public class AdminCommand implements CommandExecutor {
         switch (args[0].toLowerCase()) {
             case "next" -> {
                 IslandCoords coords = grid.allocateNext();
-                int index = configData.islandsSpawned() - 1;
-                sender.sendMessage(ChatColor.GREEN + "Allocated island #" + index +
-                        " at (" + coords.x() + ", " + coords.z() + ")");
-            }
+                int index = configData.islandIndex() - 1;
 
+                TaskManager.taskManager().async(() -> {
+                    grid.spawnIsland((Player) sender, coords);
+                });
+            }
             case "peek" -> {
                 if (args.length < 2) {
                     sender.sendMessage(ChatColor.RED + "Usage: /sba peek <index>");
@@ -69,7 +70,7 @@ public class AdminCommand implements CommandExecutor {
             }
 
             case "info" -> {
-                int spawned = configData.islandsSpawned();
+                int spawned = configData.islandIndex();
                 int regionSize = configSettings.regionSize();
                 int minSpacing = configSettings.minSpacing();
                 int maxSpacing = configSettings.maxSpacing();
@@ -135,11 +136,10 @@ public class AdminCommand implements CommandExecutor {
                     return true;
                 }
                 
-                configData.setIslandsSpawned(0);
+                configData.setIslandIndex(0);
                 configDataManager.update();
                 sender.sendMessage(ChatColor.GREEN + "islands-spawned reset to 0.");
             }
-
             default -> sendUsage(sender);
         }
 

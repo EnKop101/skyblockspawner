@@ -3,18 +3,18 @@ package org.enkop.skyblockSpawner.Data;
 import java.util.ArrayList;
 
 public class ConfigData{
-    private int islandsSpawned;
+    private int islandIndex;
     private ArrayList<Integer> releasedIndices;
 
     // Constructor
-    public ConfigData(int islandsSpawned, ArrayList<Integer> releasedIndices) {
-        this.islandsSpawned = islandsSpawned;
+    public ConfigData(int islandIndex, ArrayList<Integer> releasedIndices) {
+        this.islandIndex = islandIndex;
         this.releasedIndices = releasedIndices;
     }
 
     // Getters
-    public int islandsSpawned() {
-        return islandsSpawned;
+    public int islandIndex() {
+        return islandIndex;
     }
 
     public ArrayList<Integer> releasedIndices() {
@@ -22,8 +22,8 @@ public class ConfigData{
     }
 
     // Setters (now you can mutate!)
-    public void setIslandsSpawned(int islandsSpawned) {
-        this.islandsSpawned = islandsSpawned;
+    public void setIslandIndex(int islandIndex) {
+        this.islandIndex = islandIndex;
     }
 
     public void setReleasedIndices(ArrayList<Integer> releasedIndices) {

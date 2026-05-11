@@ -49,7 +49,7 @@ public class ConfigSettingsManager {
             else {
                 plugin.getLogger().severe("Failed to create the schematics folder. Stopping plugin as it is a requirement!");
                 plugin.getServer().getPluginManager().disablePlugin(plugin);
-                return;
+                throw new RuntimeException("Failed to configure config settings");
             }
         }
 
@@ -57,8 +57,8 @@ public class ConfigSettingsManager {
         ConfigurationSection islandConfigSection = configFile.getConfigurationSection(SECTION_NAME);
         if (islandConfigSection != null) {
             int regionDiameter = Math.max(0, islandConfigSection.getInt(REGION_DIAMETER, 1));
-            int minSpacing = Math.max(1, islandConfigSection.getInt(MAX_SPACING, 1));
-            int maxSpacing = Math.max(1, islandConfigSection.getInt(MIN_SPACING, 1));
+            int minSpacing = Math.max(1, islandConfigSection.getInt(MIN_SPACING, 1));
+            int maxSpacing = Math.max(1, islandConfigSection.getInt(MAX_SPACING, 1));
 
             String worldName = islandConfigSection.getString(WORLD, null);
             if (worldName == null){
@@ -71,7 +71,7 @@ public class ConfigSettingsManager {
             if (world == null){
                 plugin.getLogger().severe("The world name doesn't match any world that exists!");
                 plugin.getServer().getPluginManager().disablePlugin(plugin);
-                return;
+                throw new RuntimeException("Failed to configure config settings");
             }
 
             double yLevel = Math.max(0.0, islandConfigSection.getDouble(Y_LEVEL, 0.0));
@@ -80,14 +80,14 @@ public class ConfigSettingsManager {
             if (schematicName == null){
                 plugin.getLogger().severe("The schematic file name in the configuration file is missing!");
                 plugin.getServer().getPluginManager().disablePlugin(plugin);
-                return;
+                throw new RuntimeException("Failed to configure config settings");
             }
 
             File schemFile = new File(customFolder, schematicName);
             if (!schemFile.exists()){
                 plugin.getLogger().severe("The schematic file is missing from the folder! Make sure to put the .schem file in the schematics folder");
                 plugin.getServer().getPluginManager().disablePlugin(plugin);
-                return;
+                throw new RuntimeException("Failed to configure config settings");
             }
 
             int startX = Math.max(0, islandConfigSection.getInt(START_X, 0));

@@ -1,0 +1,9 @@
+[00:33:40] [ServerMain/INFO]: [bootstrap] Running Java 21 (OpenJDK 64-Bit Server VM 21.0.6+7-LTS; Eclipse Adoptium Temurin-21.0.6+7) on Windows 11 10.0 (amd64)
+[00:33:40] [ServerMain/INFO]: [bootstrap] Loading Paper 1.21.11-131-ver/1.21.11@6d5b910 (2026-05-03T16:08:07Z) for Minecraft 1.21.11
+[00:33:40] [ServerMain/INFO]: [PluginInitializerManager] Initializing plugins...
+[00:33:41] [Paper Plugin Remapper Thread - 2/INFO]: [PluginRemapper] Remapping plugin 'C:\Users\EnKop\Desktop\PoP\Dev-Plugins\SkyblockSpawner\build\libs\SkyblockSpawner-1.0-SNAPSHOT.jar'...
+[00:33:41] [Paper Plugin Remapper Thread - 2/INFO]: [PluginRemapper] Done remapping plugin 'C:\Users\EnKop\Desktop\PoP\Dev-Plugins\SkyblockSpawner\build\libs\SkyblockSpawner-1.0-SNAPSHOT.jar' in 340ms.
+[00:33:41] [ServerMain/INFO]: [PluginInitializerManager] Initialized 1 plugin
+[00:33:41] [ServerMain/INFO]: [PluginInitializerManager] Bukkit plugins (1):
+ - SkyblockSpawner (1.0-SNAPSHOT)
+[00:33:46] [ServerMain/INFO]: You need to agree to the EULA in order to run the server. Go to eula.txt for more info.
